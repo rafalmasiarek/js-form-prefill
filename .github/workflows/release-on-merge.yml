@@ -10,10 +10,10 @@ permissions:
 
 jobs:
   tag-and-release:
-    # Only run if the PR was merged and is a release PR
+    # Only run if the PR was merged and looks like a release PR
     if: >
       github.event.pull_request.merged == true &&
-      startsWith(github.event.pull_request.title, 'chore(release): v')
+      startsWith(github.event.pull_request.title, 'v')
     runs-on: ubuntu-latest
 
     steps:
@@ -23,6 +23,12 @@ jobs:
           ref: main
           fetch-depth: 0
 
+      - name: Ensure jq
+        run: |
+          if ! command -v jq >/dev/null 2>&1; then
+            sudo apt-get update -y && sudo apt-get install -y jq
+          fi
+
       - name: Extract version from package.json
         id: ver
         run: |
@@ -30,7 +36,7 @@ jobs:
           if [ -z "$ver" ] || [ "$ver" = "null" ]; then
             echo "Failed to read version from package.json"; exit 1
           fi
-          echo "version=$ver" >> $GITHUB_OUTPUT
+          echo "version=$ver" >> "$GITHUB_OUTPUT"
           echo "Version detected: $ver"
 
       - name: Create git tag vX.Y.Z
@@ -42,32 +48,27 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
         run: |
-          if [ ! -f package-lock.json ]; then
-            npm install --package-lock-only
-          fi
+          test -f package-lock.json
           npm ci
 
       - name: Build dist (unminified + minified)
         run: |
           npm run build
-          npm run build:min
 
       - name: Verify dist artifacts
         run: |
-          test -f dist/js-fair-consent.js
-          test -f dist/js-fair-consent.min.js
-          test -f dist/js-fair-consent.css
-          test -f dist/js-fair-consent.min.css
+          test -f dist/form-prefill.js
+          test -f dist/form-prefill.min.js
 
       - name: Pack ZIP
         run: |
           ver="${{ steps.ver.outputs.version }}"
-          zip -r "js-fair-consent-${ver}.zip" dist README.md LICENSE docs demo package.json
+          zip -r "form-prefill-${ver}.zip" dist README.md LICENSE docs package.json
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -75,10 +76,8 @@ jobs:
           tag_name: v${{ steps.ver.outputs.version }}
           name: v${{ steps.ver.outputs.version }}
           files: |
-            js-fair-consent-${{ steps.ver.outputs.version }}.zip
-            dist/js-fair-consent.js
-            dist/js-fair-consent.min.js
-            dist/js-fair-consent.css
-            dist/js-fair-consent.min.css
+            form-prefill-${{ steps.ver.outputs.version }}.zip
+            dist/form-prefill.js
+            dist/form-prefill.min.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
