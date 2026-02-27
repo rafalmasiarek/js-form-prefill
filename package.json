@@ -1,0 +1,29 @@
+{
+  "name": "form-prefill",
+  "version": "0.1.0",
+  "description": "Prefill HTML forms from flat GET params and optional base64url(JSON) payload with simple {{vars}}.",
+  "main": "dist/form-prefill.js",
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rafalmasiarek/js-form-prefill.git"
+  },
+  "keywords": [
+    "form",
+    "prefill",
+    "querystring",
+    "payload",
+    "mustache"
+  ],
+  "author": "Rafal Masiarek <rafal@masiarek.pl>",
+  "bugs": {
+    "url": "https://github.com/rafalmasiarek/js-form-prefill/issues"
+  },
+  "homepage": "https://github.com/rafalmasiarek/js-form-prefill#readme"
+}

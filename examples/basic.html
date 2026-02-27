@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Form Prefill - Basic Example</title>
+
+  <body>
+    <h1>Form Prefill - Basic Example</h1>
+
+    <p>Try flat params:</p>
+    <pre><code>?name=Pawel&email=test%40example.com&subject=Hello&message=Line%201%0ALine%202</code></pre>
+
+    <form data-prefill="1" data-prefill-overwrite="0" method="post" action="#">
+      <p>
+        <label>
+          Name<br>
+          <input name="name" data-prefill-key="name" />
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Email<br>
+          <input name="email" data-prefill-key="email" />
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Subject<br>
+          <input name="subject" data-prefill-key="subject" />
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Message<br>
+          <textarea name="message" data-prefill-key="message" rows="8" cols="60"></textarea>
+        </label>
+      </p>
+
+      <button type="submit">Submit (does nothing)</button>
+    </form>
+
+    <script src="../dist/form-prefill.js"></script>
+    <script>
+      // Run after DOM is ready (this script tag is below the form)
+      FormPrefill.init({ debug: true });
+    </script>
+  </body>
+</html>

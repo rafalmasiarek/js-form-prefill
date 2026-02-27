@@ -1,0 +1,32 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log
+package-lock.json.*  # keep the main package-lock.json tracked
+
+# Build artifacts (remove this if you want dist committed)
+dist/
+
+# Env & local config
+.env
+.env.*
+!.env.example
+
+# OS / editors
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Caches
+.eslintcache
+.stylelintcache
+.parcel-cache/
+.turbo/
+.cache/
+coverage/
+
