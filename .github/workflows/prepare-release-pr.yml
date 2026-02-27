@@ -78,4 +78,4 @@ jobs:
           add-paths: |
             package.json
             README.md
-            "docs/**"
+            docs/**
