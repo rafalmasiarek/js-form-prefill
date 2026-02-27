@@ -26,8 +26,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
 
       - name: Ensure jq
         run: |
@@ -49,39 +49,25 @@ jobs:
 
       - name: Install dependencies
         run: |
-          if [ ! -f package-lock.json ]; then
-            npm install --package-lock-only
-          fi
+          test -f package-lock.json
           npm ci
 
       - name: Build dist (unminified + minified)
         run: |
           npm run build
-          npm run build:min
 
       - name: Verify dist artifacts
         run: |
           test -f dist/form-prefill.js
           test -f dist/form-prefill.min.js
 
-      - name: Commit bump to release branch
-        run: |
-          ver="${{ inputs.version }}"
-          git config user.name  "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -b "release/v${ver}"
-
-          # Commit version bump + reference updates.
-          git add package.json README.md docs dist || true
-          git commit -m "chore(release): v${ver}" || echo "No changes to commit"
-          git push origin "release/v${ver}"
-
-      - name: Open Pull Request
+      - name: Create Release PR
         uses: peter-evans/create-pull-request@v8
         with:
           branch: release/v${{ inputs.version }}
           base: main
-          title: "chore(release): v${{ inputs.version }}"
+          commit-message: chore(release): v${{ inputs.version }}
+          title: chore(release): v${{ inputs.version }}
           body: |
             This PR prepares release **v${{ inputs.version }}**:
             - Bumps `package.json` version
@@ -89,4 +75,7 @@ jobs:
             - Verifies build (unminified + minified dist)
           labels: release
           draft: false
-
+          add-paths: |
+            package.json
+            README.md
+            docs/**
