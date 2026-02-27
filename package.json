@@ -9,6 +9,15 @@
     "README.md",
     "LICENSE"
   ],
+  "scripts": {
+    "clean": "rm -rf dist && mkdir -p dist",
+    "build:copy": "cp src/form-prefill.js dist/form-prefill.js",
+    "build:min": "esbuild src/form-prefill.js --format=iife --minify --legal-comments=none --outfile=dist/form-prefill.min.js",
+    "build": "npm run clean && npm run build:copy && npm run build:min"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.12"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",

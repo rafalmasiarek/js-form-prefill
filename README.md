@@ -2,6 +2,10 @@
 
 A tiny framework-agnostic JavaScript plugin that prefills HTML forms from:
 
+![npm version](https://img.shields.io/npm/v/form-prefill)
+![license](https://img.shields.io/npm/l/form-prefill)
+![size](https://img.shields.io/bundlephobia/minzip/form-prefill)
+
 - **Flat GET params** (highest priority): `?name=...&email=...&message=...`
 - Optional **payload**: `?payload=<base64url(JSON)>`
 
