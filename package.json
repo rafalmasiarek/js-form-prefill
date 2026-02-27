@@ -1,6 +1,6 @@
 {
   "name": "form-prefill",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "description": "Prefill HTML forms from flat GET params and optional base64url(JSON) payload with simple {{vars}}.",
   "main": "dist/form-prefill.js",
   "files": [
