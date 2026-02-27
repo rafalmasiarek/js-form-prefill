@@ -6,9 +6,6 @@ yarn-error.log*
 pnpm-debug.log
 package-lock.json.*  # keep the main package-lock.json tracked
 
-# Build artifacts (remove this if you want dist committed)
-dist/
-
 # Env & local config
 .env
 .env.*
