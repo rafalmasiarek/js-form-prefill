@@ -66,8 +66,8 @@ jobs:
         with:
           branch: release/v${{ inputs.version }}
           base: main
-          commit-message: chore(release): v${{ inputs.version }}
-          title: chore(release): v${{ inputs.version }}
+          commit-message: release v${{ inputs.version }}
+          title: v${{ inputs.version }}
           body: |
             This PR prepares release **v${{ inputs.version }}**:
             - Bumps `package.json` version
