@@ -15,7 +15,7 @@
     "build:min": "esbuild src/form-prefill.js --bundle --format=iife --global-name=FormPrefill --minify --legal-comments=none --outfile=dist/form-prefill.min.js",
     "build": "npm run clean && npm run build:js && npm run build:min",
     "prepack": "npm run build"
-  }
+  },
   "devDependencies": {
     "esbuild": "^0.28.0"
   },
